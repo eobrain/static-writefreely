@@ -1,0 +1,163 @@
+<!DOCTYPE HTML>
+<html lang="en" dir="auto">
+
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#">
+    <meta charset="utf-8">
+
+    <title>{{title}} &mdash; {{author}}</title>
+
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="canonical" href="https://{{site}}/{{slug}}" />
+    <meta name="generator" content="static-writefreely">
+    <meta name="title" content="{{title}} &mdash; {{author}}">
+    <meta name="description" content="{{description}}">
+    <meta name="author" content="{{author}}" />
+    <meta itemprop="description" content="{{description}}">
+    <meta itemprop="datePublished" content="{{published}}" />
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:description" content="{{description}}">
+    <meta name="twitter:title" content="{{title}} &mdash; {{author}}">
+    <meta name="twitter:image" content="{{image}}">
+    <meta property="og:title" content="{{title}}" />
+    <meta property="og:description" content="{{description}}" />
+    <meta property="og:site_name" content="{{siteName}}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://{{site}}/{{slug}}" />
+    <meta property="og:image" content="{{image}}">
+    <meta property="article:published_time" content="{{published}}">
+
+
+
+    <link rel="me" href="{{me}}" />
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [
+                    ["\\(", "\\)"],
+                    ['$', '$'],
+                ],
+                displayMath: [
+                    ['$$', '$$'],
+                    ['\\[', '\\]'],
+                ],
+            },
+        };
+    </script>
+    <script type="text/javascript" id="MathJax-script" src="/js/mathjax/tex-svg-full.js" async>
+    </script>
+
+
+
+
+
+    <script>
+
+        addEventListener('DOMContentLoaded', function () {
+            var hlbaseUri = "/js/";
+            var lb = document.querySelectorAll("code[class^='language-']");
+
+
+
+            var aliasmap = {
+                "elisp": "lisp",
+                "emacs-lisp": "lisp",
+                "c": "cpp",
+                "cc": "cpp",
+                "h": "cpp",
+                "c++": "cpp",
+                "h++": "cpp",
+                "hpp": "cpp",
+                "hh": "cpp",
+                "hxx": "cpp",
+                "cxx": "cpp",
+                "sh": "bash",
+                "js": "javascript",
+                "jsx": "javascript",
+                "html": "xml"
+            };
+
+
+            function highlight(nodes) {
+                for (i = 0; i < nodes.length; i++) {
+                    hljs.highlightBlock(nodes[i]);
+                }
+            }
+
+
+            function loadLanguages(uris, callback) {
+                uris.forEach(function (uri) {
+                    var sc = document.createElement('script');
+                    sc.src = uri;
+                    sc.async = false;
+
+                    if (uris.indexOf(uri) == uris.length - 1) {
+
+
+
+                        sc.onload = callback; sc.onerror = callback;
+                    }
+                    document.head.appendChild(sc);
+                });
+            }
+
+
+            if (lb.length > 0) {
+
+                var st = document.createElement('link');
+                st.rel = "stylesheet";
+                st.href = "/css/lib/atom-one-light.min.css";
+                document.head.appendChild(st);
+
+
+                var jss = [hlbaseUri + "highlight.min.js"];
+
+                for (i = 0; i < lb.length; i++) {
+                    lang = lb[i].className.replace('language-', '').toLowerCase();
+
+                    if (aliasmap[lang]) lang = aliasmap[lang];
+                    lurl = hlbaseUri + "highlightjs/" + lang + ".min.js";
+                    if (!jss.includes(lurl)) {
+                        jss.push(lurl);
+                    }
+                }
+
+                loadLanguages(jss, () => { highlight(lb) });
+            }
+        });
+    </script>
+
+
+</head>
+
+<body>
+
+    <header>
+        <h1><a rel="author" href="/" class="h-card p-author">{{author}}</a>
+        </h1>
+        <nav>
+
+            <a class="pinned" href="https://eamonn.org/about">About</a><a class="pinned"
+                href="https://eamonn.org/privacy">Privacy</a><a class="pinned"
+                href="https://eamonn.org/disclaimer">Disclaimer</a><a class="pinned"
+                href="https://eamonn.org/history">History</a><a class="pinned" href="https://eamonn.org/more-posts">More
+                Posts</a>
+
+
+        </nav>
+    </header>
+
+
+    <article>
+        <h2>{{title}}</h2><time class="dt-published" datetime="{{published}}" pubdate itemprop="datePublished"
+            content="{{published}}">{{published}}</time>
+        <section>{{{contentHtml}}}</section>
+        </div>
+    </article>
+
+</body>
+
+</html>
