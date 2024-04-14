@@ -1,21 +1,22 @@
 import Database from 'better-sqlite3'
 import fs from 'node:fs/promises'
+import { writeFile } from './file.js'
 
 const db = new Database('writefreely.db', { readonly: true, fileMustExist: true })
 
 const stmt = db.prepare('SELECT slug, content FROM posts')
 
-const markdown = 'markdown'
+const siteDir = 'site'
 
 try {
-  await fs.access(markdown)
+  await fs.access(siteDir)
 } catch (error) {
-  await fs.mkdir(markdown)
+  await fs.mkdir(siteDir)
 }
 
 const promises = []
 for (const row of stmt.iterate()) {
-  promises.push(fs.writeFile(markdown + '/' + row.slug + '.md', row.content))
+  promises.push(writeFile(siteDir, row))
 }
 
 await Promise.all(promises)
