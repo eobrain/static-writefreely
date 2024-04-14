@@ -1,0 +1,3 @@
+[md]
+deps=["writefreely.db"]
+exec="node index.js"
