@@ -14,9 +14,9 @@ await mkdirIfNecessary(siteDir)
 const postTemplate = await fs.readFile('layout/post.html', 'utf8')
 
 // Convert markdown to HTML and write to site directory
-for (const { slug, id, title, created } of postMetadata) {
-  const markdown = await fs.readFile(`markdown/${slug}-${id}.md`, 'utf8')
+for (const { slug, title, created } of postMetadata) {
+  const markdown = await fs.readFile(`markdown/${slug}.md`, 'utf8')
   const contentHtml = converter.makeHtml(markdown)
   const rendered = Mustache.render(postTemplate, { contentHtml, slug, title, created })
-  await fs.writeFile(`${siteDir}/${slug}-${id}.html`, rendered)
+  await fs.writeFile(`${siteDir}/${slug}.html`, rendered)
 }
