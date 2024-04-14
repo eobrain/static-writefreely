@@ -1,0 +1,16 @@
+{
+  "name": "static-writefreely",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Export writefreely site as a static site",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Eamonn O'Brien-Strain",
+  "license": "ISC",
+  "dependencies": {
+    "@11ty/eleventy": "^2.0.1",
+    "better-sqlite3": "^9.5.0"
+  }
+}
