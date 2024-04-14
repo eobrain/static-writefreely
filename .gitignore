@@ -1,3 +1,5 @@
 /node_modules
 /writefreely.db
 /site
+/post_metadata.json
+/markdown/

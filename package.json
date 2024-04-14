@@ -5,6 +5,8 @@
   "description": "Export writefreely site as a static site",
   "main": "index.js",
   "scripts": {
+    "generate": "bajel $npm_lifecycle_event",
+    "clean": "bajel $npm_lifecycle_event",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Eamonn O'Brien-Strain",

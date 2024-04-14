@@ -1,4 +1,9 @@
+[generate]
+deps=["post_metadata.json"]
 
-[html]
+["post_metadata.json"]
 deps=["writefreely.db"]
-exec="node index.js"
+exec="node extract_from_db.js"
+
+[clean]
+exec="rm -rf post_metadata.json markdown _site"

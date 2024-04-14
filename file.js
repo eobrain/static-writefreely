@@ -1,9 +1,9 @@
 import fs from 'node:fs/promises'
-import showdown from 'showdown'
 
-const converter = new showdown.Converter()
-
-export async function writeFile (siteDir, { slug, content }) {
-  const html = converter.makeHtml(content)
-  return await fs.writeFile(siteDir + '/' + slug + '.html', html)
+export async function mkdirIfNecessary (dir) {
+  try {
+    await fs.access(dir)
+  } catch (error) {
+    await fs.mkdir(dir)
+  }
 }
