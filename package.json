@@ -10,7 +10,6 @@
   "author": "Eamonn O'Brien-Strain",
   "license": "ISC",
   "dependencies": {
-    "@11ty/eleventy": "^2.0.1",
     "bajel": "^1.1.0",
     "better-sqlite3": "^9.5.0"
   }
