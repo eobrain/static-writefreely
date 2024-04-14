@@ -1,3 +1,8 @@
+[html]
+deps=["md"]
+exec="npx @11ty/eleventy --input=markdown --output=_site"
+
+
 [md]
 deps=["writefreely.db"]
 exec="node index.js"
