@@ -1,5 +1,5 @@
 [generate]
-deps=["post_metadata.json"]
+deps=["post_metadata.json", "_site/js/equation.js", "_site/js/tex-svg-full.js"]
 exec="node src/make_site.js"
 
 ["post_metadata.json"]
@@ -10,5 +10,12 @@ exec="node src/extract_from_db.js"
 deps=["generate"]
 exec="cd _site && live-server"
 
+["_site/js/%.js"]
+deps=["layout/js/%.js"]
+exec="mkdir -p _site/js && cp $< $@"
+
 [clean]
 exec="rm -rf post_metadata.json content _site"
+
+[fix]
+exec="standard --fix --ignore layout/js/tex-svg-full.js --ignore layout/js/equation.js"
