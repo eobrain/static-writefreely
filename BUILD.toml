@@ -1,14 +1,14 @@
 [generate]
 deps=["post_metadata.json"]
-exec="node make_site.js"
+exec="node src/make_site.js"
 
 ["post_metadata.json"]
 deps=["writefreely.db"]
-exec="node extract_from_db.js"
+exec="node src/extract_from_db.js"
 
 [start]
 deps=["generate"]
 exec="cd _site && live-server"
 
 [clean]
-exec="rm -rf post_metadata.json markdown _site"
+exec="rm -rf post_metadata.json content _site"

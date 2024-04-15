@@ -17,7 +17,9 @@ WHERE pinned_position IS NOT NULL
 ORDER BY pinned_position
 `)
 
-const markdownDir = 'markdown'
+const contentDir = 'content'
+const markdownDir = `${contentDir}/markdown`
+await mkdirIfNecessary(contentDir)
 await mkdirIfNecessary(markdownDir)
 
 const slugSet = new Set()
@@ -40,7 +42,7 @@ for (const { id, slug, title, content } of selectPages.iterate()) {
   promises.push(fs.writeFile(`${markdownDir}/${actualSlug}.md`, content))
   pageMetadata.push({ slug: actualSlug, title })
 }
-promises.push(fs.writeFile('page_metadata.json', JSON.stringify(pageMetadata, null, 2)))
+promises.push(fs.writeFile(`${contentDir}/page_metadata.json`, JSON.stringify(pageMetadata, null, 2)))
 
 const postMetadata = []
 for (const { id, slug, title, created, content } of selectPosts.iterate()) {
@@ -48,6 +50,6 @@ for (const { id, slug, title, created, content } of selectPosts.iterate()) {
   promises.push(fs.writeFile(`${markdownDir}/${actualSlug}.md`, content))
   postMetadata.push({ slug: actualSlug, title, created })
 }
-promises.push(fs.writeFile('post_metadata.json', JSON.stringify(postMetadata, null, 2)))
+promises.push(fs.writeFile(`${contentDir}/post_metadata.json`, JSON.stringify(postMetadata, null, 2)))
 
 await Promise.all(promises)
