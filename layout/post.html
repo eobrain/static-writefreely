@@ -36,11 +36,9 @@
         <h1><a rel="author" href="/" class="h-card p-author">{{author}}</a>
         </h1>
         <nav>
-            <a class="pinned" href="https://eamonn.org/about">About</a><a class="pinned"
-                href="https://eamonn.org/privacy">Privacy</a><a class="pinned"
-                href="https://eamonn.org/disclaimer">Disclaimer</a><a class="pinned"
-                href="https://eamonn.org/history">History</a><a class="pinned" href="https://eamonn.org/more-posts">More
-                Posts</a>
+            {{#pageMetadata}}
+            <a href="{{slug}}.html">{{title}}</a>
+            {{/pageMetadata}}
         </nav>
     </header>
     <article>

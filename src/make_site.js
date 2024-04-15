@@ -15,7 +15,7 @@ await mkdirIfNecessary(siteDir)
 
 async function renderMarkdown (markdown, slug, template, title, created) {
   const contentHtml = converter.makeHtml(markdown)
-  const rendered = Mustache.render(template, { contentHtml, slug, title, created })
+  const rendered = Mustache.render(template, { contentHtml, slug, title, created, pageMetadata })
   await fs.writeFile(`${siteDir}/${slug}.html`, rendered)
 }
 
