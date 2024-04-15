@@ -1,6 +1,15 @@
 [generate]
-deps=["post_metadata.json", "_site/js/equation.js", "_site/js/tex-svg-full.js"]
+deps=["_site/index.html", "_site/js", "_site/css"]
+
+["_site/index.html"]
+deps=["post_metadata.json"]
 exec="node src/make_site.js"
+
+["_site/js"]
+exec="mkdir -p _site   &&  cp -r layout/js $@"
+
+["_site/css"]
+exec="mkdir -p _site   &&  cp -r layout/css $@"
 
 ["post_metadata.json"]
 deps=["writefreely.db"]
@@ -9,10 +18,6 @@ exec="node src/extract_from_db.js"
 [start]
 deps=["generate"]
 exec="cd _site && live-server"
-
-["_site/js/%.js"]
-deps=["layout/js/%.js"]
-exec="mkdir -p _site/js && cp $< $@"
 
 [clean]
 exec="rm -rf post_metadata.json content _site"
