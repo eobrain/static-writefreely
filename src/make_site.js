@@ -2,6 +2,7 @@ import fs from 'node:fs/promises'
 import showdown from 'showdown'
 import { mkdirIfNecessary } from './file.js'
 import Mustache from 'mustache'
+// import { pp } from 'passprint'
 
 const converter = new showdown.Converter()
 
@@ -29,16 +30,16 @@ const homeTemplate = postTemplate // TODO: Create a separate layout for the home
 
 // Convert markdown to HTML and write to site directory
 for (const { slug, title } of pageMetadata) {
-  await render(slug, pageTemplate, { slug, title })
+  await render(slug, pageTemplate, title)
 }
 for (const { slug, title, created } of postMetadata) {
-  await render(slug, postTemplate, { slug, title, created })
+  await render(slug, postTemplate, title, created)
 }
 
 // Generate home page
 let homeContent = ''
 for (const { slug, title, created } of postMetadata) {
   homeContent += `* [${title}](${slug}.html) - ${created}\n`
-  await render(slug, postTemplate, { slug, title, created })
+  await render(slug, postTemplate, title, created)
 }
 renderMarkdown(homeContent, 'index', homeTemplate, 'Blog') // Replace 'Blog' with the actual blog title
