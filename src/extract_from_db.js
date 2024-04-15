@@ -39,16 +39,18 @@ const promises = []
 const pageMetadata = []
 for (const { id, slug, title, content } of selectPages.iterate()) {
   const actualSlug = uniqueSlug(slug, id)
+  const actualTitle = title || slug || 'Page'
   promises.push(fs.writeFile(`${markdownDir}/${actualSlug}.md`, content))
-  pageMetadata.push({ slug: actualSlug, title })
+  pageMetadata.push({ slug: actualSlug, title: actualTitle })
 }
 promises.push(fs.writeFile(`${contentDir}/page_metadata.json`, JSON.stringify(pageMetadata, null, 2)))
 
 const postMetadata = []
 for (const { id, slug, title, created, content } of selectPosts.iterate()) {
   const actualSlug = uniqueSlug(slug, id)
+  const actualTitle = title || slug || 'Post'
   promises.push(fs.writeFile(`${markdownDir}/${actualSlug}.md`, content))
-  postMetadata.push({ slug: actualSlug, title, created })
+  postMetadata.push({ slug: actualSlug, title: actualTitle, created })
 }
 promises.push(fs.writeFile(`${contentDir}/post_metadata.json`, JSON.stringify(postMetadata, null, 2)))
 
