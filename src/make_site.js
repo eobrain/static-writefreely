@@ -4,7 +4,7 @@ import { mkdirIfNecessary } from './file.js'
 import Mustache from 'mustache'
 // import { pp } from 'passprint'
 
-const converter = new showdown.Converter()
+const converter = new showdown.Converter({ tables: true })
 
 // Read metadata from JSON files
 const pageMetadata = JSON.parse(await fs.readFile('content/page_metadata.json'))

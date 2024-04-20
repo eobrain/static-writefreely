@@ -12,7 +12,13 @@ const db = new Database(databasePath, { readonly: true, fileMustExist: true })
 const selectPosts = db.prepare(`
 SELECT id, slug, title, created, content
 FROM posts
-WHERE pinned_position IS NULL
+WHERE pinned_position IS NULL AND slug IS NOT NULL
+ORDER BY created DESC
+`)
+const selectDrafts = db.prepare(`
+SELECT id, slug, title, created, content
+FROM posts
+WHERE pinned_position IS NULL AND slug IS NULL
 ORDER BY created DESC
 `)
 const selectPages = db.prepare(`
@@ -58,5 +64,14 @@ for (const { id, slug, title, created, content } of selectPosts.iterate()) {
   postMetadata.push({ slug: actualSlug, title: actualTitle, created })
 }
 promises.push(fs.writeFile(`${contentDir}/post_metadata.json`, JSON.stringify(postMetadata, null, 2)))
+
+const draftMetadata = []
+for (const { id, slug, title, created, content } of selectDrafts.iterate()) {
+  const actualSlug = uniqueSlug(slug, id)
+  const actualTitle = title || slug || 'Draft'
+  promises.push(fs.writeFile(`${markdownDir}/${actualSlug}.md`, content))
+  draftMetadata.push({ slug: actualSlug, title: actualTitle, created })
+}
+promises.push(fs.writeFile(`${contentDir}/draft_metadata.json`, JSON.stringify(draftMetadata, null, 2)))
 
 await Promise.all(promises)
