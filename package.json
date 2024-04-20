@@ -16,6 +16,7 @@
   "dependencies": {
     "bajel": "^1.1.0",
     "better-sqlite3": "^9.5.0",
+    "glob": "^10.3.12",
     "live-server": "^1.2.2",
     "mustache": "^4.2.0",
     "passprint": "^0.0.1",

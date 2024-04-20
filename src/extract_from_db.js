@@ -1,8 +1,13 @@
 import Database from 'better-sqlite3'
 import fs from 'node:fs/promises'
-import { mkdirIfNecessary } from './file.js'
 
-const db = new Database('writefreely.db', { readonly: true, fileMustExist: true })
+import { mkdirIfNecessary, find } from './file.js'
+// import { pp } from 'passprint'
+
+const databasePath = await find('writefreely.db')
+console.log(`Database path: ${databasePath}`)
+
+const db = new Database(databasePath, { readonly: true, fileMustExist: true })
 
 const selectPosts = db.prepare(`
 SELECT id, slug, title, created, content

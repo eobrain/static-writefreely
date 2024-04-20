@@ -12,7 +12,6 @@ exec="mkdir -p _site   &&  cp -r layout/js $@"
 exec="mkdir -p _site   &&  cp -r layout/css $@"
 
 ["post_metadata.json"]
-deps=["writefreely.db"]
 exec="node src/extract_from_db.js"
 
 [start]
