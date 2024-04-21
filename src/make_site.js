@@ -13,9 +13,11 @@ const postMetadata = JSON.parse(await fs.readFile('content/post_metadata.json'))
 const siteDir = '_site'
 await mkdirIfNecessary(siteDir)
 
+const head = await fs.readFile('layout/head.html', 'utf8')
+
 async function renderWrite (markdown, slug, template, title, created, prev, next) {
   const contentHtml = converter.makeHtml(markdown)
-  const rendered = Mustache.render(template, { contentHtml, slug, title, created, prev, next, pageMetadata })
+  const rendered = Mustache.render(template, { contentHtml, slug, title, created, prev, next, pageMetadata }, { head })
   await fs.writeFile(`${siteDir}/${slug}.html`, rendered)
 }
 
@@ -24,9 +26,9 @@ async function readRenderWrite (slug, template, title, created, prev, next) {
   await renderWrite(markdown, slug, template, title, created, prev, next)
 }
 
+const pageTemplate = await fs.readFile('layout/page.html', 'utf8')
 const postTemplate = await fs.readFile('layout/post.html', 'utf8')
-const pageTemplate = postTemplate // TODO: Create a separate layout for pages
-const homeTemplate = postTemplate // TODO: Create a separate layout for the home page
+const homeTemplate = await fs.readFile('layout/home.html', 'utf8')
 
 // Convert markdown to HTML and write to site directory
 for (const { slug, title } of pageMetadata) {

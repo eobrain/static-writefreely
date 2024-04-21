@@ -1,0 +1,20 @@
+{{> head}}
+<body>
+    <header>
+        <h1><a rel="author" href="/" class="h-card p-author">{{author}}</a>
+        </h1>
+        <nav>
+            <a href="/">Home</a>
+            {{#pageMetadata}}
+            <a href="{{slug}}.html">{{title}}</a>
+            {{/pageMetadata}}
+        </nav>
+    </header>
+    <article>
+        <h2>{{title}}</h2>
+        <section>{{{contentHtml}}}</section>
+        </div>
+    </article>
+</body>
+
+</html>
