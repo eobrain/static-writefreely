@@ -81,7 +81,10 @@ for (const { id, slug, title, content } of selectPages.iterate()) {
   const actualSlug = uniqueSlug(slug || frontMatter.slug, id)
   const actualTitle = title || frontMatter.title || slug || 'Post'
   promises.push(fs.writeFile(`${markdownDir}/${actualSlug}.md`, markdown))
-  pageMetadata.push({ slug: actualSlug, title: actualTitle })
+  pageMetadata.push({
+    slug: actualSlug,
+    title: actualTitle
+  })
 }
 promises.push(fs.writeFile(`${contentDir}/page_metadata.json`, JSON.stringify(pageMetadata, null, 2)))
 
@@ -91,7 +94,13 @@ for (const { id, slug, title, created, content } of selectPosts.iterate()) {
   const actualSlug = uniqueSlug(slug || frontMatter.slug, id)
   const actualTitle = title || frontMatter.title || slug || 'Post'
   promises.push(fs.writeFile(`${markdownDir}/${actualSlug}.md`, markdown))
-  postMetadata.push({ slug: actualSlug, title: actualTitle, created: created || frontMatter.date })
+  postMetadata.push({
+    slug: actualSlug,
+    title: actualTitle,
+    created: created || frontMatter.date,
+    ref: frontMatter.ref,
+    image: frontMatter.image
+  })
 }
 promises.push(fs.writeFile(`${contentDir}/post_metadata.json`, JSON.stringify(postMetadata, null, 2)))
 
