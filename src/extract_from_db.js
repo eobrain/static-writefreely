@@ -1,11 +1,21 @@
 import Database from 'better-sqlite3'
 import fs from 'node:fs/promises'
+import { parse } from 'ini'
 
 import { mkdirIfNecessary, find } from './file.js'
 // import { pp } from 'passprint'
 
 const databasePath = await find('writefreely.db')
+const configPath = databasePath.replace(/writefreely\.db$/, 'config.ini')
 console.log(`Database path: ${databasePath}`)
+
+const configText = await fs.readFile(configPath, { encoding: 'utf-8' })
+const configIni = parse(configText)
+const config = {
+  siteName: configIni.app.site_name,
+  siteDescription: configIni.app.site_description,
+  host: configIni.app.host
+}
 
 const db = new Database(databasePath, { readonly: true, fileMustExist: true })
 
@@ -63,6 +73,7 @@ function extractFrontMatter (inputMarkdown) {
 // Extract maekdown from DB and write to separate files, one per post,
 // with all the writes happening aynchronously in parallel
 const promises = []
+promises.push(fs.writeFile(`${contentDir}/config.json`, JSON.stringify(config, null, 2)))
 
 const pageMetadata = []
 for (const { id, slug, title, content } of selectPages.iterate()) {
