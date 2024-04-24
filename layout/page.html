@@ -1,4 +1,21 @@
+{{! Parameters:
+- title: Title of the post
+- description: Description of the post
+- author: Author of the post
+- created: Date the post was created
+- image: Image to display in social media
+- siteName: Name of the site
+- site: Site domain
+- slug: path of the post
+- me: URL of the author
+
+- pageMetadata: List of {slug, title}
+- contentHtml: HTML content of the page
+}}
+<!DOCTYPE HTML>
+<html lang="en" dir="auto">
 {{> head}}
+
 <body>
     <header>
         <h1><a rel="author" href="/" class="h-card p-author">{{author}}</a>
