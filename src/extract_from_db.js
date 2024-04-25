@@ -91,9 +91,20 @@ promises.push(fs.writeFile(`${contentDir}/page_metadata.json`, JSON.stringify(pa
 const postMetadata = []
 for (const { id, slug, title, created, content } of selectPosts.iterate()) {
   const { frontMatter, markdown } = extractFrontMatter(content)
+  const prelude = []
+  if (frontMatter.image && frontMatter.ref) {
+    prelude.push(`[![image](${frontMatter.image})](${frontMatter.ref})`)
+    prelude.push(' ')
+  } else if (frontMatter.image) {
+    prelude.push(`![image](${frontMatter.image})`)
+    prelude.push(' ')
+  } else if (frontMatter.ref) {
+    prelude.push(`[Reference](${frontMatter.ref})`)
+    prelude.push(' ')
+  }
   const actualSlug = uniqueSlug(slug || frontMatter.slug, id)
   const actualTitle = title || frontMatter.title || slug || 'Post'
-  promises.push(fs.writeFile(`${markdownDir}/${actualSlug}.md`, markdown))
+  promises.push(fs.writeFile(`${markdownDir}/${actualSlug}.md`, prelude.join('\n') + markdown))
   postMetadata.push({
     slug: actualSlug,
     title: actualTitle,
