@@ -4,9 +4,14 @@ import { parse } from 'ini'
 
 import { mkdirIfNecessary, find } from './file.js'
 // import { pp } from 'passprint'
+import util from 'util'
+import childProcess from 'child_process'
+
+const exec = util.promisify(childProcess.exec)
 
 const databasePath = await find('writefreely.db')
 const configPath = databasePath.replace(/writefreely\.db$/, 'config.ini')
+const imgPath = databasePath.replace(/writefreely\.db$/, 'static/img')
 console.log(`Database path: ${databasePath}`)
 
 const configText = await fs.readFile(configPath, { encoding: 'utf-8' })
@@ -40,8 +45,10 @@ ORDER BY pinned_position
 
 const contentDir = 'content'
 const markdownDir = `${contentDir}/markdown`
+const imgDir = `${contentDir}/img`
 await mkdirIfNecessary(contentDir)
 await mkdirIfNecessary(markdownDir)
+await mkdirIfNecessary(imgDir)
 
 const slugSet = new Set()
 function uniqueSlug (slug, id) {
@@ -73,6 +80,7 @@ function extractFrontMatter (inputMarkdown) {
 // Extract maekdown from DB and write to separate files, one per post,
 // with all the writes happening aynchronously in parallel
 const promises = []
+promises.push(exec(`cp -r ${imgPath} ${imgDir}`))
 promises.push(fs.writeFile(`${contentDir}/config.json`, JSON.stringify(config, null, 2)))
 
 const pageMetadata = []

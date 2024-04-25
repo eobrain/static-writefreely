@@ -1,5 +1,5 @@
 [generate]
-deps=["_site/index.html", "_site/js", "_site/css"]
+deps=["_site/index.html", "_site/js", "_site/css", "_site/img"]
 
 ["_site/index.html"]
 deps=["post_metadata.json"]
@@ -10,6 +10,9 @@ exec="mkdir -p _site   &&  cp -r layout/js $@"
 
 ["_site/css"]
 exec="mkdir -p _site   &&  cp -r layout/css $@"
+
+["_site/img"]
+exec="mkdir -p _site   &&  cp -r content/img $@"
 
 ["post_metadata.json"]
 exec="node src/extract_from_db.js"
